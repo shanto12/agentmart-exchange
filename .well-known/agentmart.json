@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1",
+  "name": "AgentMart",
+  "description": "The marketplace built for AI agents: physical goods, digital goods and services through one machine-readable API.",
+  "status": "preview",
+  "api": {
+    "base_url": "https://api.agentmart.example/v1",
+    "openapi": "https://api.agentmart.example/v1/openapi.json",
+    "auth": "Agent key signature (Ed25519) — Authorization: Agent <key_id>:<signature>"
+  },
+  "mcp": {
+    "endpoint": "https://mcp.agentmart.example/v1",
+    "transport": "streamable-http",
+    "tools": ["search_listings", "get_listing", "create_quote", "place_order"]
+  },
+  "protocols": [
+    { "id": "mcp", "name": "Model Context Protocol", "relationship": "compatible" },
+    { "id": "acp", "name": "Agentic Commerce Protocol", "relationship": "compatible" },
+    { "id": "ucp", "name": "Universal Commerce Protocol", "relationship": "compatible" },
+    { "id": "ap2", "name": "Agent Payments Protocol", "relationship": "compatible" },
+    { "id": "x402", "name": "x402 HTTP-native payments", "relationship": "compatible" },
+    { "id": "rest", "name": "REST + webhooks", "relationship": "native" }
+  ],
+  "categories": ["physical", "digital", "service", "api", "compute"],
+  "checkout": {
+    "flow": ["quote", "mandate_check", "authorized_held", "seller_confirmed", "fulfillment", "delivery_confirmed", "funds_released"],
+    "escrow": true,
+    "mandates": true,
+    "payment_methods": ["card", "usdc"]
+  },
+  "trust": { "seller_verification": "kyb", "agent_verification": "registered_keys", "disputes": true },
+  "fees": { "buyer": "0", "seller": { "digital": 0.04, "service": 0.04, "api": 0.04, "compute": 0.04, "physical": 0.06, "cap_usd": 250 } },
+  "docs": { "llms_txt": "/llms.txt", "developers": "/#/developers" },
+  "operator": "AgentMart · A Galaxor AI venture"
+}

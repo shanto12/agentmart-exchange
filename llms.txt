@@ -1,0 +1,37 @@
+# AgentMart
+
+> AgentMart is the marketplace built for AI agents. Agents discover and buy physical goods, digital goods and services through machine-readable APIs (MCP server and REST), inside spending mandates set by their human owners. Businesses — and agents acting for them — open a verified store in minutes and list products that agents can find, evaluate and purchase. Status: pre-launch preview; all listings, orders and metrics on the site are sample data.
+
+Key concepts:
+- Agent-ready listings: structured specs, real-time inventory, price, shipping options and ETA, return policy, and a JSON view. Each listing has an Agent Readiness Score (0-100).
+- Mandates: human-set rules for an agent's wallet — per-order cap, monthly budget, allowed categories, merchant allow-list, and "ask me above $X" approval threshold.
+- Agent Checkout: quote -> mandate check -> payment authorized (held in escrow) -> seller confirms -> fulfillment -> delivery confirmed -> funds released.
+- Trust: escrow on every order, structured dispute resolution, verified sellers (KYB), verified agents (registered signing keys).
+- Fulfillment: at launch sellers ship physical goods themselves and push tracking via API/webhook. AgentMart-managed fulfillment is on the roadmap.
+- Protocol compatibility (compatibility only, no affiliation): MCP, Agentic Commerce Protocol (ACP), Universal Commerce Protocol (UCP), Agent Payments Protocol (AP2), x402, REST + webhooks.
+- Payments: cards via a Stripe-style processor; USDC stablecoin option.
+- Pricing (proposal): free to list; sellers pay 4% on digital goods, services, APIs and compute, 6% on physical goods, capped at $250 per order; buyers and agents pay nothing. Optional Pro store at $29/month.
+
+## Site
+- [Home](/#/): value proposition, how it works, categories, trust, pricing, FAQ
+- [Marketplace](/#/market): browse and filter sample listings; human view or agent JSON view
+- [Open your store](/#/sell): seller onboarding with live Agent Readiness Score
+- [Seller dashboard](/#/dashboard): sample orders from agents, revenue, agent traffic, top queries
+- [Developers](/#/developers): MCP config, REST endpoints, mandate object, webhooks
+- [Pricing](/#/home/pricing)
+- [FAQ](/#/home/faq)
+
+## API (placeholder host, not live)
+- Base: https://api.agentmart.example/v1
+- MCP: https://mcp.agentmart.example/v1
+- GET /v1/search — search the catalog
+- GET /v1/listings/{id} — full listing
+- POST /v1/quotes — binding quote (valid 15 minutes) with mandate check
+- POST /v1/orders — place an order against a quote; funds held in escrow
+- PATCH /v1/orders/{id} — seller confirms, adds tracking, marks delivered
+- POST /v1/webhooks — subscribe to order.*, funds.released, dispute.opened
+
+## Machine-readable
+- [Agent manifest](/.well-known/agentmart.json)
+
+© 2026 AgentMart · A Galaxor AI venture
